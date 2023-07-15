@@ -8,7 +8,7 @@ const defaultCartState = {
 
 const cartReducer = (state, action) => {
   if ((action.type = "ADD")) {
-    const updatedItems = state.item.concat(action.item);
+    const updatedItems = state.items.concat(action.item);
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
 
@@ -28,6 +28,8 @@ const CartProvider = (props) => {
   );
 
   const addItemToCartHandler = (item) => {
+    console.log("on cart provider cotext");
+    console.log(item);
     dispatchCartState({ type: "ADD", item: item });
   };
   const removeItemFromCartHandler = (id) => {
@@ -37,13 +39,15 @@ const CartProvider = (props) => {
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
-    addItem: (item) => addItemToCartHandler,
-    removeItem: (id) => removeItemFromCartHandler,
+    addItem: addItemToCartHandler,
+    removeItem: removeItemFromCartHandler,
   };
 
-  <CartContext.Provider value={cartContext}>
-    {props.children}
-  </CartContext.Provider>;
+  return (
+    <CartContext.Provider value={cartContext}>
+      {props.children}
+    </CartContext.Provider>
+  );
 };
 
 export default CartProvider;
