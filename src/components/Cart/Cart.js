@@ -52,6 +52,7 @@ const Cart = (props) => {
         }),
       }
     );
+    ctx.clearCart();
     setIsSubmitting(false);
     setDidSubmit(true);
   };
